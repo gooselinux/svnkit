@@ -1,0 +1,77 @@
+diff -Naur svnkit-src-1.2.2.5405.original/build.xml svnkit-src-1.2.2.5405/build.xml
+--- svnkit-src-1.2.2.5405.original/build.xml	2009-02-16 11:48:00.000000000 -0430
++++ svnkit-src-1.2.2.5405/build.xml	2009-02-16 13:17:06.000000000 -0430
+@@ -35,16 +35,17 @@
+         <path id="library.classpath">
+             <pathelement location="contrib/trilead/trilead.jar" />
+             <pathelement location="contrib/jna/jna.jar" />            
++            <pathelement location="contrib/javahl/svn-javahl.jar" />
+             <pathelement path="contrib/javahl/bin" />
+             <pathelement path="contrib/sequence/bin" />
+             <pathelement path="svnkit/bin" />
+         </path>
+ 
+-        <javac debug="true" destdir="contrib/javahl/bin" srcdir="contrib/javahl/src">
++<!--        <javac debug="true" destdir="contrib/javahl/bin" srcdir="contrib/javahl/src">
+             <exclude name="**/SVNClient.java" />
+             <exclude name="**/SVNAdmin.java" />
+             <exclude name="**/Path.java" />
+-        </javac>
++        </javac>-->
+         <javac debug="true" destdir="contrib/sequence/bin" srcdir="contrib/sequence/src" />
+         <javac debug="true" destdir="svnkit/bin" srcdir="svnkit/src" classpathref="library.classpath">
+             <exclude name="org/tmatesoft/svn/util/SVNTest.java"/>
+@@ -249,11 +250,11 @@
+         <zip destfile="build/lib/svnkitsrc.zip">
+             <fileset dir="svnkit/src" />
+             <fileset dir="svnkit-eclipse/org.tmatesoft.svnkit/src" />
+-            <fileset dir="contrib/javahl/src">
++<!--            <fileset dir="contrib/javahl/src">
+             	<exclude name="org/tigris/subversion/javahl/SVNAdmin.java"/>
+             	<exclude name="org/tigris/subversion/javahl/SVNClient.java"/>
+                 <exclude name="org/tigris/subversion/javahl/Path.java"/>
+-            </fileset>
++            </fileset>-->
+             <fileset dir="contrib/sequence/src" />
+             <fileset dir="${basedir}" >
+                 <include name="COPYING" />
+@@ -519,13 +520,13 @@
+ 				<exclude name=".svn"/>
+ 				<exclude name=".svn/**"/>
+ 			</zipfileset>
+-			<zipfileset dir="contrib/javahl/src" prefix="src">
++			<!--<zipfileset dir="contrib/javahl/src" prefix="src">
+ 				<exclude name=".svn"/>
+ 				<exclude name=".svn/**"/>
+                 <exclude name="org/tigris/subversion/javahl/SVNClient.java" />
+                 <exclude name="org/tigris/subversion/javahl/SVNAdmin.java" />
+                 <exclude name="org/tigris/subversion/javahl/Path.java" />
+-			</zipfileset>
++			</zipfileset>-->
+ 			<zipfileset dir="contrib/sequence/src" prefix="src">
+ 				<exclude name=".svn"/>
+ 				<exclude name=".svn/**"/>
+diff -Naur svnkit-src-1.2.2.5405.original/.classpath svnkit-src-1.2.2.5405/.classpath
+--- svnkit-src-1.2.2.5405.original/.classpath	2009-02-16 11:48:00.000000000 -0430
++++ svnkit-src-1.2.2.5405/.classpath	2009-02-16 11:52:10.000000000 -0430
+@@ -6,7 +6,8 @@
+ 	<classpathentry kind="src" output="doc/examples/bin" path="doc/examples/src"/>
+ 	<classpathentry kind="src" output="svnkit-eclipse/bin" path="svnkit-eclipse/org.tmatesoft.svnkit/src"/>
+ 	<classpathentry kind="src" output="svnkit-test/bin" path="svnkit-test/src"/>
+-	<classpathentry excluding="**/Path.java|**/SVNAdmin.java|**/SVNClient.java" kind="src" output="contrib/javahl/bin" path="contrib/javahl/src"/>
++<!--	<classpathentry excluding="**/Path.java|**/SVNAdmin.java|**/SVNClient.java" kind="src" output="contrib/javahl/bin" path="contrib/javahl/src"/>-->
++	<classpathentry kind="lib" path="contrib/javahl/svn-javahl.jar"/>
+ 	<classpathentry kind="src" output="contrib/sequence/bin" path="contrib/sequence/src"/>
+ 	<classpathentry kind="src" output="contrib/sequence/bin" path="contrib/sequence/src-test"/>
+ 	<classpathentry kind="lib" path="contrib/junit/junit.jar"/>
+diff -Naur svnkit-src-1.2.2.5405.original/svnkit-eclipse/org.tmatesoft.svnkit/MANIFEST.MF svnkit-src-1.2.2.5405/svnkit-eclipse/org.tmatesoft.svnkit/MANIFEST.MF
+--- svnkit-src-1.2.2.5405.original/svnkit-eclipse/org.tmatesoft.svnkit/MANIFEST.MF	2009-02-16 11:48:00.000000000 -0430
++++ svnkit-src-1.2.2.5405/svnkit-eclipse/org.tmatesoft.svnkit/MANIFEST.MF	2009-02-16 14:03:35.000000000 -0430
+@@ -14,6 +14,7 @@
+ Bundle-ClassPath: .,
+  svnkit.jar,
+  svnkit-javahl.jar,
++ svn-javahl.jar,
+  trilead.jar
+ Export-Package: com.trilead.ssh2,
+  com.trilead.ssh2.auth,
